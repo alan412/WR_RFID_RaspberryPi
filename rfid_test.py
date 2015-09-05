@@ -5,14 +5,18 @@ from phant import Phant
 tags = {'0009909662' : 'Philip Smith',
         '0004406858' : 'Joshua Smith',
         '0009909876' : 'Abigail Smith',
-        '0004304910' : 'Dad'}
+        '0003567797' : 'Linda Whipker'}
 p = Phant('yAYZ9aJ98Kiyz4XNm5NW', 'location', 'id', 'name', 'time', private_key='4Wqom46m9niK2k8pzxp4')
 
 def getName(idString):
-   try:
-     return tags[card]
-   except:
-     return 'Unknown: ' + idString
+	with open('/home/pi/rfid/web/users.txt', 'r') as file:
+		for line in file:
+			row = line.split(', ');
+			if (row[0] == idString):
+				return row[1];
+	return 'Unknown'
+		
+	
 
 def logAccess(id):
   name = getName(id)
