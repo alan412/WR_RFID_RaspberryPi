@@ -37,6 +37,6 @@ function updateDisplay() {
       $("#hours").html(( hours < 10 ? "0" : "" ) + hours);
       }, 1000);    
    
-  setInterval(function(){updateDisplay()}, 500);
+  setInterval(function(){updateDisplay()}, 250);
    
   });
