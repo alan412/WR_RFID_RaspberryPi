@@ -33,7 +33,9 @@ def writePresent(students):
    f = open('/home/pi/rfid/web/users.txt', 'w');
    for id in students:
       if(students[id]['isHere']):
-         f.write(students[id]['name'] +"<br/>");
+         if(any):
+           f.write(", ");
+         f.write(students[id]['name']);
          any = True;
    if(any == False):
       f.write("None");
@@ -47,6 +49,9 @@ def writeMessage(id, students):
       else:
         f.write("Bye, ");
       f.write(students[id]['name']);
+   else:
+      print("Unknown: " + id);
+      f.write("Unknown: " + id); 
    f.close()
 
 reader = reader.Reader(0x08ff, 0x0009, 84, 16, should_reset=False) # From the documentation - the VID and DEVID
