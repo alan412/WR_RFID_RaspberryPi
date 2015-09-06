@@ -1,6 +1,8 @@
 function updateDisplay() {
           var jqxhr = $.get("message.php", function(data){
-            $('#Message').html(data);
+            $('#Message').html(data);});
+          var jqxhr = $.get("users.php", function(data){
+            $('#Users').html(data);
       });
   }
    
@@ -34,9 +36,12 @@ function updateDisplay() {
       // Create a newDate() object and extract the hours of the current time
       var hours = new Date().getHours();
       // Add a leading zero to the hours value
+      ampm = (hours > 12) ? " pm" : " am";
+      hours = (hours > 12) ? hours - 12 : hours; 
       $("#hours").html(( hours < 10 ? "0" : "" ) + hours);
+      $("#ampm").html(ampm);
       }, 1000);    
-   
+ 
   setInterval(function(){updateDisplay()}, 250);
    
   });
