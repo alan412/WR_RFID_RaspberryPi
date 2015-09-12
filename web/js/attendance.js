@@ -1,4 +1,3 @@
-//TODO: Change so date is also updated.   Combine all date and time into one function
 //TODO: Make so the message is only visible for one second
 
   function updateDisplay() {
