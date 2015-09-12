@@ -1,13 +1,22 @@
 //TODO: Change so date is also updated.   Combine all date and time into one function
-//TODO: Change to not use PHP on the server side
 //TODO: Make so the message is only visible for one second
 
 function updateDisplay() {
-          var jqxhr = $.get("message.php", function(data){
-            $('#Message').html(data);});
-          var jqxhr = $.get("users.php", function(data){
-            $('#Users').html(data);
-      });
+          $.ajax({
+              method: "GET",
+              url: "message.txt",
+              cache: false
+          })
+           .done(function( html ){
+              $('#Message').html(html);});
+        
+          $.ajax({
+              method: "GET",
+              url: "users.txt",
+              cache: false
+          })
+           .done(function( html ){
+              $('#Users').html(html);});
   }
    
   $(document).ready(function() {
