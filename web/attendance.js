@@ -16,6 +16,7 @@
           })
            .done(function( html ){
               $('#Users').html(html);});
+		setTimeout(updateDisplay, 250)
   }
   
   function updateDateTime(){
@@ -44,8 +45,12 @@
      
   $(document).ready(function() {
 	  updateDateTime();
-	  updateDisplay(); 
+      var ws = new WebSocket('ws://octopi.local:9090/ws');
+      ws.onmessage = function (evt) {
+         $('#Message').html(evt.data);
+      };
+ 
+//	  updateDisplay(); 
       
   	  setInterval(function(){updateDateTime()}, 1000);
-      setInterval(function(){updateDisplay()}, 250);
   });
