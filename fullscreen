@@ -1,0 +1,9 @@
+#!/bin/sh
+unclutter &
+xset -dpms
+xset s off
+matchbox-window-manager &
+while true; do
+# epiphany-browser http://127.0.0.1:9090
+chromium --noerrdialogs --kiosk http://127.0.0.1:9090
+done
