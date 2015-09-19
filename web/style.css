@@ -1,0 +1,65 @@
+body{
+       background:#333333;
+       font:bold 12px Arial, Helvetica, sans-serif;
+       margin:0;
+       padding:0;
+       min-width:90%;
+       color:#bbbbbb;
+  }
+    
+  h1 {
+      font: 2em normal Arial, Helvetica, sans-serif;
+      padding: 20px;    margin: 0;
+      text-align:center;
+      color:green
+  }
+   
+  h2 {
+      font-weight:700;
+      color:#bbb;
+      font-size:1.5em;
+  }
+   
+  .container {
+      width: 80%;
+      margin: 0 auto;
+      overflow: hidden;
+      margin: 0 auto;
+      padding: 30px;
+      border: 1px solid #333;
+      color: #fff;
+      background: #0066FF;	  
+  }
+    
+  .tags {
+      width: 80%;
+      margin: 0 auto;
+      padding: 30px;
+      border: 1px solid #333;
+      color: #fff;
+      background: #0066FF;
+  }
+   
+  #Date {
+      font-size: 2em;
+      text-align: center;
+  }
+  #Message {
+      font-size: 3em;
+      text-align: center;
+  }
+  #Users {
+      font-size: 1em;
+  }
+  #Clock {
+	  font-size: 4em;
+      text-align:center;
+  }
+   
+  #point {
+      position: relative;
+      padding-left: 5px;
+      padding-right: 5px;
+  }
+   
+
