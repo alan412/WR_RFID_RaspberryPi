@@ -3,20 +3,23 @@ import os
 from ws4py.server.cherrypyserver import WebSocketPlugin, WebSocketTool
 from ws4py.websocket import WebSocket
 from ws4py.messaging import TextMessage
+from cherrypy.process import plugins
 
-from keyboard_alike import reader
-import datetime
-import csv
-from phant import Phant
+from rfid_handling import RFIDHandling
 
 WebSocketPlugin(cherrypy.engine).subscribe()
 cherrypy.tools.websocket = WebSocketTool()
 
+rfidHandler = RFIDHandling()
+
+def doRFID():
+     cherrypy.engine.publish("websocket-broadcast", TextMessage(rfidHandler.blockingRead()))
+
 class WebSocketHandler(WebSocket):
     def opened(self):
         print "Socket Opened------"
-    def closed(self, code, reason="A client left the room without a proper explanation."):
-        print "Socket Closed---------------------2"
+    def closed(self, code, reason="unknown"):
+        print "Socket Closed------2"
         
 class rfid(object):
    @cherrypy.expose
@@ -37,18 +40,29 @@ class rfidGeneratorWebService(object):
 if __name__ == '__main__':
    rfidapp = rfid()
    rfidapp.generator = rfidGeneratorWebService()
-
-
+   
    file_path = os.getcwd() + '/web'
 
 # This is the configuration and starting of the service
    cherrypy.config.update({'server.socket_host' : "0.0.0.0",
                            'server.socket_port' : 9090})
+         
+   plugins.BackgroundTask(0.1, doRFID).start()
    cherrypy.quickstart(rfid(),'/', 
       {
         '/':
         {
             'tools.staticdir.root' : file_path,
+        },
+        '/logaccess.csv':
+        {
+            'tools.staticfile.on' : True,
+            'tools.staticfile.filename' : file_path + '/logaccess.csv'
+        },
+        '/users.txt':
+        {
+            'tools.staticfile.on' : True,
+            'tools.staticfile.filename' : file_path + '/users.txt'            
         },
         '/style.css':
         {
@@ -66,13 +80,5 @@ if __name__ == '__main__':
             'tools.websocket.handler_cls' : WebSocketHandler   
         }
       }
-   )
-   ##### CODE NEVER GETS HERE!!
+   )  
    
-   reader = reader.Reader(0x08ff, 0x0009, 84, 16, should_reset=False) # From the documentation - the VID and DEVID
-   reader.initialize()
-   while(1):
-      print "waiting for card"
-      card = reader.read().strip()    # get the card number
-      print card
-      cherrypy.engine.publish('websocket-broadcast', TextMessage(card))

@@ -1,14 +1,4 @@
-//TODO: Make so the message is only visible for one second
-
-  function updateDisplay() {
-          $.ajax({
-              method: "GET",
-              url: "message.txt",
-              cache: false
-          })
-           .done(function( html ){
-              $('#Message').html(html);});
-        
+  function updateUsers() {      
           $.ajax({
               method: "GET",
               url: "users.txt",
@@ -16,7 +6,6 @@
           })
            .done(function( html ){
               $('#Users').html(html);});
-		setTimeout(updateDisplay, 250)
   }
   
   function updateDateTime(){
@@ -25,7 +14,7 @@
 
 	  // Create a newDate() object
 	  var newDate = new Date();
-  	  $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
+  	  $('#Date').html(dayNames[newDate.getDay()] + ", " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
 
       var seconds = newDate.getSeconds();
       // Add a leading zero to seconds value
@@ -42,15 +31,23 @@
       $("#hours").html(( hours < 10 ? "0" : "" ) + hours);
       $("#ampm").html(ampm);	
   }
+  
+  function showMessage(){
+	  $('#Message').html("Please scan button")
+	  $('#Message').fadeTo(500, 1.0); 
+  }
+  
+  function hideName(){
+	  $('#Message').fadeTo(1000, 0.1, function(){showMessage()});
+  }
      
   $(document).ready(function() {
 	  updateDateTime();
       var ws = new WebSocket('ws://octopi.local:9090/ws');
       ws.onmessage = function (evt) {
-         $('#Message').html(evt.data);
-      };
- 
-//	  updateDisplay(); 
-      
+		  $('#Message').html(evt.data);
+		  updateUsers();
+		  setTimeout(function(){hideName()}, 5*1000);
+      };     
   	  setInterval(function(){updateDateTime()}, 1000);
   });
