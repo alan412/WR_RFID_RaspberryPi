@@ -1,4 +1,6 @@
 # dynamically generated files
-access_log.txt
+*.pyc
+
+# mac files
 .AppleDouble
 .DS_Store
