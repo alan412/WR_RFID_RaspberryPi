@@ -1,6 +1,8 @@
 # dynamically generated files
 *.pyc
-
+# downloaded files
+*.csv
 # mac files
 .AppleDouble
 .DS_Store
+RFID.json
