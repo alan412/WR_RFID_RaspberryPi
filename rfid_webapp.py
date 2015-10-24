@@ -64,15 +64,16 @@ if __name__ == '__main__':
             'tools.staticfile.on' : True,
             'tools.staticfile.filename' : file_path + '/users.txt'            
         },
-        '/style.css':
+        '/js':
         {
-            'tools.staticfile.on' : True,
-            'tools.staticfile.filename' : file_path + '/style.css'
+            'tools.staticdir.on' : True,
+            'tools.staticdir.dir' : file_path + '/js'
         },
-        '/attendance.js':
+
+        '/static':
         {
-            'tools.staticfile.on' : True,
-            'tools.staticfile.filename' : file_path + '/attendance.js'
+            'tools.staticdir.on' : True,
+            'tools.staticdir.dir' : file_path + '/static'
         },
         '/ws':
         {
